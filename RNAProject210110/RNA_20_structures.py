@@ -87,8 +87,8 @@ plt.ylabel("Number of Occurences")
 threeLargest = heapq.nlargest(3,frequencyStructureArray)
 threeSmallest = heapq.nsmallest(3,frequencyStructureArray)
 
-print("The three largest frequencies are" , threeLargest)
-print("The three smallest frequencies are " , threeSmallest)
+print("The three largest frequencies are", threeLargest)
+print("The three smallest frequencies are ", threeSmallest)
 
 theLargest = threeLargest[0]
 theSmallest = threeSmallest[0]
