@@ -66,25 +66,28 @@ import heapq
 from scipy.spatial.distance import hamming
 import statistics
 
-f = open("/Users/rafiqkamal/Desktop/Data_Science/RNAProject210110/RNAL20StructuresGSSizes.txt")
+f = open("/Users/rafiqkamal/Desktop/Data_Science/RNAProject210110/RNAL20StructuresGSSizes.txt")#Read in the RNA Data which is a 20 Char abreviated RNA structure of parenthesis and the frequency an int that ranges from 1 to the millions
 contents = f.readlines()
 
-frequencyStructureArray = []
-histogramArray = []
+frequencyStructureArray = []#This is the main structure for this code that holds a 2D array(list) with the first element of each nested array being the structure string and the second element being the frequency number
+histogramArray = []#this will hold the histogram data after they are calculated
 
 for line in contents:
-    x = re.findall("\d+",line)
-    y = re.findall("[()\.]+",line)
-    frequencyStructureArray.append([int(x[0]),y[0]])
-    histogramArray.append(math.log10(int(x[0])))
-frequencyStructureArray.sort()
+    x = re.findall("\d+",line)#parsing the original data to neatly put it into the main structure
+    y = re.findall("[()\.]+",line)#same as above
+    frequencyStructureArray.append([int(x[0]),y[0]])#putting the new strings in the main structure
+    histogramArray.append(math.log10(int(x[0])))#same as above but this is the log of the frequency in order for the resulting graphs to not seem so skewed
+frequencyStructureArray.sort()#this is to optimize the speed of the program
 
+
+#Plot the histogram of the largest frequency
 plt.figure("RNA Histogram")
 plt.hist(histogramArray,bins = 5, ec="black")
 plt.xlabel("log10 of Frequencies")
 plt.ylabel("Number of Occurences")
 
-threeLargest = heapq.nlargest(3,frequencyStructureArray)
+#Find the highest and lowest three frequencies and print them
+threeLargest = heapq.nlargest(3,frequencyStructureArray)#Used this method, but using the sorted array would be faster.
 threeSmallest = heapq.nsmallest(3,frequencyStructureArray)
 
 print("The three largest frequencies are", threeLargest)
@@ -104,6 +107,7 @@ thirdLargestFreqHammingDistances = []
 secondSmallestFreqHammingDistances = []
 thirdSmallestFreqHammingDistances = []
 
+#Find the hamming distance for the highest and lowest frequencies
 for line in frequencyStructureArray:
     lineArray = list(line[1])
     largestArray = list(theLargest[1])
@@ -119,6 +123,7 @@ for line in frequencyStructureArray:
     secondSmallestFreqHammingDistances.append(hamming(lineArray,secondSmallestArray) * len(lineArray))
     thirdSmallestFreqHammingDistances.append(hamming(lineArray, thirdSmallestArray) * len(lineArray))
 
+# sorting them
 highestFreqHammingDistances.sort()
 smallestFreqHammingDistances.sort()
 secondLargestFreqHammingDistances.sort()
@@ -126,6 +131,7 @@ thirdLargestFreqHammingDistances.sort()
 secondSmallestFreqHammingDistances.sort()
 thirdSmallestFreqHammingDistances.sort()
 
+#Plot the histograms
 plt.figure("Highest Frequencies Histogram")
 plt.hist(highestFreqHammingDistances,bins = 5, ec="black")
 plt.xlabel("Highest Frequencies Histogram")
@@ -158,6 +164,7 @@ plt.ylabel("Number of Occurences")
 
 plt.show()
 
+# Find the mean of the hamming distances
 meanOfHighestFreqHammingDistances = statistics.mean(highestFreqHammingDistances)
 meanOfSecondHighestFreqHammingDistances = statistics.mean(secondLargestFreqHammingDistances)
 meanOfThirdHighestFreqHammingDistances = statistics.mean(thirdLargestFreqHammingDistances)
