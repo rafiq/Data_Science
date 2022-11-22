@@ -1,3 +1,4 @@
+Link to the published paper: https://www.researchgate.net/publication/358907026_A_Note_on_A_Priori_Forecasting_and_Simplicity_Bias_in_Time_Series
 # Data_Science
  <img width="816" alt="image" src="https://user-images.githubusercontent.com/71498824/203362029-eb5d65de-96c9-4326-a01a-5481705928b9.png">
 
